@@ -1,0 +1,31 @@
+<!doctype html>
+<title>kinaposhuk</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+<div class=page>
+    <div class=header>
+        <img class=header_icon src="{{ url_for('static', filename='icon.jpg' ) }}" alt="icon">
+        {% if session.logged_in %}
+            <a class=header_text3 href="{{ url_for('films') }}"> LIST OF MOVIES </a>
+            <a class=header_text4 href="{{ url_for('profile')}}">MY PROFILE</a>
+            <a class=header_text4 href="{{ url_for('logout') }}">LOG OUT</a>{% else %}
+            <a class=header_text href="{{ url_for('login') }}">LOG IN</a>
+            <a class=header_text2 href="{{ url_for('registration') }}">REGISTER</a>
+        {% endif %}
+    </div>
+
+    <div class=metanav>
+        {% for message in get_flashed_messages() %}
+        <div class=flash align="center">{{ message }}</div> {% endfor %}
+            {% if not session.logged_in %}
+                <img src="{{ url_for('static', filename='cat_start.jpg' ) }}" alt="cat" align="left" width="30%" height="30%">
+            {% endif %}
+    </div>
+
+    <div class=footer>
+        <p class=footer_text align="center">
+            by Misha Pototsky & Alina Avgustyonok
+        </p>
+    </div>
+{% block body %}{% endblock %}
+</div>

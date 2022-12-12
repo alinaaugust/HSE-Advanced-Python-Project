@@ -1,0 +1,11 @@
+{% extends "layout.html" %} {% block body %}
+<div class=main_header>
+    TOP-50 ACCORDING TO IMDB
+</div>
+    {%  for f in films %}
+        <div class=film_common>
+        <p class="title"><a href={{ url_for("film", film_id=f.title_id) }}>{{ f.title }}</a></p>
+        <p class="rating" align="right"> {{ f.average_rating }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %} {% block body %}
+<div class=main_header>
+    MY PROFILE
+</div>
+
+<div class=category_header>
+    WATCHED
+</div>
+    {% for w in watched_list %}
+        <div class=film_common>
+        <p class="text">{{ w[0] }}</p>
+        <p class="text" align="right">{{ w[1] }}</p>
+        </div>
+    {% endfor %}
+
+<div class=category_header>
+    PLANNED
+</div>
+
+    {% for p in planned_list %}
+        <div class=film_common>
+        <p class="text"><a href='{{ url_for('film', film_id = p[1]) }}'>{{ p[0] }}</a></p>
+        </div>
+    {% endfor %}
+{% endblock %}

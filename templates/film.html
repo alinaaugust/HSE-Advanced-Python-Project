@@ -1,0 +1,46 @@
+{% extends "layout.html" %} {% block body %}
+    {% for f in info %}
+        {% for i in add_inf %}
+            <div class=main_header>{{ f.title }}</div>
+            <img class=poster src="{{ url_for('static', filename=pict ) }}" alt="poster">
+            <div class=film_page>
+            <p class="rating"> Rating: {{ f.average_rating }} </p>
+            <p class="release">Release date: {{ f.release_date }}</p>
+            <p class="genres">Genres: {{ f.genres }}</p>
+            <p class="director"> Director: {{ i.director }}</p>
+            <p class="duration"> Duration: {{ i.duration }}</p>
+            <p class="actors"> Actors: {{ i.actors }}</p>
+            <p class="description"> {{ i.description }}</p>
+            </div>
+            <div class=film_rating>
+            {% if not flag_w%}
+                <p class="rating"> Your Rating: {{ your_rating }} </p>
+            {% endif %}
+            {% if flag_w %}
+                <h4>Rate film from 1 to 10, if you`ve watched it, </h4>
+                <form action="{{ url_for('add_watched', title_id=f.title_id) }}" method=post>
+                    <dl>
+                        <dt>Your mark
+                        <dd><input type=text name=rate>
+                        <dd><input type=submit value='add in watched'>
+                    </dl>
+                </form>
+            {% endif %}
+            {% if flag_p and flag_w%}
+                <form action="{{ url_for('add_planned', title_id=f.title_id) }}" method=post>
+                    <dl>
+                        <dd><input type=submit value='add in planned'>
+                    </dl>
+                </form>
+            {% endif %}
+            {% if not flag_p and flag_w%}
+                            <form action="{{ url_for('delete_planned', title_id=f.title_id) }}" method=post>
+                    <dl>
+                        <dd><input type=submit value='delete from planned'>
+                    </dl>
+                </form>
+            {% endif %}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
